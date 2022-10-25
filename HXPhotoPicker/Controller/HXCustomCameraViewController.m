@@ -720,7 +720,24 @@ CLLocationManagerDelegate
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
             _previewView.frame = self.view.bounds;
         }else {
-            _previewView.hx_size = CGSizeMake(self.view.hx_w, self.view.hx_w / 9 * 16);
+            if (@available(iOS 16.0, *)) {
+                // iOS16 需要使用 UIWindowScene 来区分横竖屏
+                NSArray *array = [[[UIApplication sharedApplication] connectedScenes] allObjects];
+                UIWindowScene *scene = [array firstObject];
+                UIInterfaceOrientation deviceOrientation = scene.interfaceOrientation;
+                if (deviceOrientation == UIInterfaceOrientationLandscapeLeft || deviceOrientation == UIInterfaceOrientationLandscapeRight) {
+                    _previewView.hx_size = CGSizeMake(self.view.hx_w, self.view.hx_w / 16 * 9);
+                }else{
+                    _previewView.hx_size = CGSizeMake(self.view.hx_w, self.view.hx_w / 9 * 16);
+                }
+            } else {
+                UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+                if (deviceOrientation == UIDeviceOrientationLandscapeLeft || deviceOrientation == UIDeviceOrientationLandscapeRight) {
+                    _previewView.hx_size = CGSizeMake(self.view.hx_w, self.view.hx_w / 16 * 9);
+                }else{
+                    _previewView.hx_size = CGSizeMake(self.view.hx_w, self.view.hx_w / 9 * 16);
+                }
+            }
             _previewView.center = CGPointMake(self.view.hx_w / 2, self.view.hx_h / 2);
         }
     }
