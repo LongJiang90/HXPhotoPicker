@@ -418,9 +418,9 @@ HX_PhotoEditViewControllerDelegate
     CGFloat bottomMargin = hxBottomMargin;
     CGFloat leftMargin = 0;
     CGFloat rightMargin = 0;
-    CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    CGFloat height = [UIScreen mainScreen].bounds.size.height;
-    CGFloat viewWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat width = self.view.hx_w;
+    CGFloat height = self.view.hx_h;
+    CGFloat viewWidth = self.view.hx_w;
     
     
     if (!CGRectEqualToRect(self.view.bounds, [UIScreen mainScreen].bounds)) {
