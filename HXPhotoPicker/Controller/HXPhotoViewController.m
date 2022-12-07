@@ -2247,7 +2247,9 @@ HX_PhotoEditViewControllerDelegate
 }
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
-        CGFloat collectionHeight = self.view.hx_h;
+        UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+        CGFloat navBarHeight = orientation== UIInterfaceOrientationLandscapeLeft||UIInterfaceOrientationLandscapeRight? 44+20 : hxNavigationBarHeight;
+        CGFloat collectionHeight = self.view.hx_h-navBarHeight;
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.hx_w, collectionHeight) collectionViewLayout:self.flowLayout];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
